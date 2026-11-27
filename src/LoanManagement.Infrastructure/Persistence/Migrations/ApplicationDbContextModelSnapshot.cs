@@ -924,6 +924,130 @@ namespace LoanManagement.Infrastructure.Persistence.Migrations
                     b.ToTable("repayment_schedules", (string)null);
                 });
 
+            modelBuilder.Entity("LoanManagement.Domain.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OrganizationId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("OrganizationId", "Role");
+
+                    b.ToTable("users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "usr_admin_01",
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "system",
+                            Email = "admin@bank.com",
+                            FullName = "System Admin",
+                            IsActive = true,
+                            IsDeleted = false,
+                            OrganizationId = "org_default",
+                            PasswordHash = "v1.100000.7ofzdEV3XgcM58cJqhvKrw==.nNfPleuFQ85eYAxJ5MYXQHtivS4L7yKbPXpHAkQyNPs=",
+                            Role = "Admin"
+                        },
+                        new
+                        {
+                            Id = "usr_officer_01",
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "system",
+                            Email = "officer@bank.com",
+                            FullName = "Loan Officer",
+                            IsActive = true,
+                            IsDeleted = false,
+                            OrganizationId = "org_default",
+                            PasswordHash = "v1.100000.MDWj9SbEjHU6tQB0DuZLGg==.duINfkxwhUCpFIvrzN1aqajQgDev0pIE7J3PZkYMAdc=",
+                            Role = "LoanOfficer"
+                        },
+                        new
+                        {
+                            Id = "usr_underwriter_01",
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "system",
+                            Email = "underwriter@bank.com",
+                            FullName = "Underwriter",
+                            IsActive = true,
+                            IsDeleted = false,
+                            OrganizationId = "org_default",
+                            PasswordHash = "v1.100000.gGfggZQM6QqHijj6vf9glA==.I2hcIcH+zo25chFBSTMfEdGafdUsxevNfHNFtqBiXqY=",
+                            Role = "Underwriter"
+                        },
+                        new
+                        {
+                            Id = "usr_ops_01",
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "system",
+                            Email = "ops@bank.com",
+                            FullName = "Back Office Ops",
+                            IsActive = true,
+                            IsDeleted = false,
+                            OrganizationId = "org_default",
+                            PasswordHash = "v1.100000.FefF3XKHgEB2WDp1gxMc1A==.naw8m2C279fjF9U5wsmhTTAtGMbNCclcQyaNiqQHGYE=",
+                            Role = "BackOffice"
+                        },
+                        new
+                        {
+                            Id = "usr_customer_01",
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedBy = "system",
+                            Email = "customer@bank.com",
+                            FullName = "Sample Customer",
+                            IsActive = true,
+                            IsDeleted = false,
+                            OrganizationId = "org_default",
+                            PasswordHash = "v1.100000.Q886Rs7thdYGS3AOKDG47A==.bZ5P+3NWhzYkcdAPAoT73cjnJRBpH8f7RyNn3GoffWM=",
+                            Role = "Customer"
+                        });
+                });
+
             modelBuilder.Entity("LoanManagement.Domain.Entities.Borrower", b =>
                 {
                     b.HasOne("LoanManagement.Domain.Entities.Organization", null)

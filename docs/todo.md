@@ -124,3 +124,17 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 - [x] Update root `README.md` with Architecture Diagrams, System Overview, Setup Guide, and Swagger instructions.
 - [x] Verify clean build with zero warnings: `dotnet build`.
 - [x] Verify all tests pass: `dotnet test`.
+
+## Phase 9: Auth, User Management & Docker (New Tasks)
+- [x] **9.1 Fix Token Role Bug**
+  - [x] Sanitize /api/v1/auth/token to ignore invalid "string" roles and return valid system roles.
+- [x] **9.2 Full Auth & User Management**
+  - [x] Add User entity (Id, Email, PasswordHash, FullName, Role, OrganizationId, IsActive, CreatedAt).
+  - [x] Implement password hashing (PBKDF2/HMACSHA256) via IPasswordHasher; no plaintext passwords.
+  - [x] Seed test users: dmin@bank.com/Admin123!, officer@bank.com/Officer123!, underwriter@bank.com/Underwriter123!, ops@bank.com/Ops123!, customer@bank.com/Customer123!.
+  - [x] Add POST /api/v1/auth/register and POST /api/v1/auth/login (JWT with real claims/roles).
+  - [x] Add EF migration for Users/auth seed and apply migrations automatically on API startup.
+- [x] **9.3 Dockerfile & Docker Compose**
+  - [x] Update src/LoanManagement.API/Dockerfile to multi-stage .NET 10 build.
+  - [x] Add root docker-compose.yml with sqlserver (2022-latest, SA password, 1433) and loan-management-api (depends on sqlserver, port 8080, connection string env).
+  - [x] Verify API container startup applies migrations (Database.Migrate()).

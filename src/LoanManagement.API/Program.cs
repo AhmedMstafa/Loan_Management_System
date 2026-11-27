@@ -3,7 +3,9 @@ using LoanManagement.API.Filters;
 using LoanManagement.API.Middlewares;
 using LoanManagement.Application;
 using LoanManagement.Infrastructure;
+using LoanManagement.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -87,5 +89,11 @@ app.UseAuthentication();
 app.UseMiddleware<IdempotencyMiddleware>();
 app.UseAuthorization();
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();

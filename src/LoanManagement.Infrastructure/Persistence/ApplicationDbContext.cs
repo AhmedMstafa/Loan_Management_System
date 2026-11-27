@@ -24,6 +24,7 @@ public sealed class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Dispute> Disputes => Set<Dispute>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
     public DbSet<IdempotencyRecord> IdempotencyRecords => Set<IdempotencyRecord>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -19,6 +19,7 @@ public interface IApplicationDbContext
     DbSet<Dispute> Disputes { get; }
     DbSet<AuditLog> AuditLogs { get; }
     DbSet<IdempotencyRecord> IdempotencyRecords { get; }
+    DbSet<User> Users { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

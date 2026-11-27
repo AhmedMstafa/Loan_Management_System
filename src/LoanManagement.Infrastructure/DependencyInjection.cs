@@ -36,6 +36,8 @@ public static class DependencyInjection
         services.AddScoped<ICreditBureauService, CreditBureauService>();
         services.AddScoped<IDocumentStorageService, DocumentStorageService>();
         services.AddScoped<IIdempotencyService, IdempotencyService>();
+        services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
+        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         services.AddQuartz(q =>
         {
