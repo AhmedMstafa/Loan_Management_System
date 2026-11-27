@@ -121,6 +121,6 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 8: Final Polish & Portfolio Readiness
-- [ ] Update root `README.md` with Architecture Diagrams, System Overview, Setup Guide, and Swagger instructions.
-- [ ] Verify clean build with zero warnings: `dotnet build`.
-- [ ] Verify all tests pass: `dotnet test`.
+- [x] Update root `README.md` with Architecture Diagrams, System Overview, Setup Guide, and Swagger instructions.
+- [x] Verify clean build with zero warnings: `dotnet build`.
+- [x] Verify all tests pass: `dotnet test`.
