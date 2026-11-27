@@ -1,5 +1,16 @@
 @Loan_Management_System_HostAddress = http://localhost:5164
 
+### 0. Generate Admin JWT Token (Use token in Swagger "Authorize" button)
+# @name login
+POST {{Loan_Management_System_HostAddress}}/api/v1/auth/token
+Content-Type: application/json
+
+{
+  "userId": "usr_admin_01",
+  "userName": "Ahmed Mostafa",
+  "organizationId": "org_default"
+}
+
 ### 1. Swagger UI & OpenAPI Specification
 GET {{Loan_Management_System_HostAddress}}/swagger/v1/swagger.json
 Accept: application/json
