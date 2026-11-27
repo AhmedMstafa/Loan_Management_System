@@ -56,11 +56,12 @@ public sealed class LoansController : BaseApiController
 
     [HttpPost("loans/bulk-import")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<BulkImportLoansResponse>> BulkImport([FromForm] IFormFile file, CancellationToken ct)
+    [Consumes("multipart/form-data")]
+    public async Task<ActionResult<BulkImportLoansResponse>> BulkImport([FromForm] BulkImportLoansRequest request, CancellationToken ct)
     {
         await using var ms = new MemoryStream();
-        await file.CopyToAsync(ms, ct);
-        var result = await Mediator.Send(new BulkImportLoansCommand(GetOrganizationId(), file.FileName, ms.ToArray()), ct);
+        await request.File.CopyToAsync(ms, ct);
+        var result = await Mediator.Send(new BulkImportLoansCommand(GetOrganizationId(), request.File.FileName, ms.ToArray()), ct);
         return Accepted(result);
     }
 
@@ -82,3 +83,7 @@ public sealed record DisburseLoanRequest(decimal DisbursedAmount, string Disburs
 public sealed record DestinationAccountDto(string BankCode, string AccountNumber, string AccountHolderName);
 public sealed record ApplyTopUpRequest(decimal AdditionalAmount, int TenorExtensionMonths, string Reason);
 public sealed record ResolveDisputeRequest(string DisputeId, string ResolutionType, decimal AdjustmentAmount, string ResolutionNotes);
+public sealed class BulkImportLoansRequest
+{
+    public IFormFile File { get; set; } = default!;
+}
