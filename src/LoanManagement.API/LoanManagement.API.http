@@ -1,6 +1,30 @@
 @Loan_Management_System_HostAddress = http://localhost:5164
 
-GET {{Loan_Management_System_HostAddress}}/weatherforecast/
+### 1. Swagger UI & OpenAPI Specification
+GET {{Loan_Management_System_HostAddress}}/swagger/v1/swagger.json
 Accept: application/json
 
-###
+### 2. List Delinquent Accounts
+GET {{Loan_Management_System_HostAddress}}/api/v1/loans/delinquent?pageNumber=1&pageSize=10
+Accept: application/json
+
+### 3. Get Audit Logs
+GET {{Loan_Management_System_HostAddress}}/api/v1/audit/logs?pageNumber=1&pageSize=10
+Accept: application/json
+
+### 4. Create Loan Application (requires Idempotency-Key)
+POST {{Loan_Management_System_HostAddress}}/api/v1/loans
+Content-Type: application/json
+Idempotency-Key: a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d
+
+{
+  "organizationId": "org_default",
+  "borrowerId": "bor_001",
+  "productId": "prod_personal_01",
+  "requestedAmount": 25000.00,
+  "currency": "USD",
+  "tenorMonths": 24,
+  "annualInterestRate": 12.50,
+  "purpose": "Home Improvement",
+  "collateralDescription": "Vehicle"
+}

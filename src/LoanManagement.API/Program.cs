@@ -76,7 +76,12 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Loan Management API v1");
+    c.RoutePrefix = string.Empty; // Serves Swagger UI at root (http://localhost:5164/)
+});
+app.MapGet("/swagger", () => Results.Redirect("/"));
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseMiddleware<IdempotencyMiddleware>();
