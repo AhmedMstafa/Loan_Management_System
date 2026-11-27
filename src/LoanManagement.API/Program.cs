@@ -94,7 +94,10 @@ app.MapGet("/", () => Results.Ok(new
     swagger = "/swagger",
     version = "v1"
 }));
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseAuthentication();
 app.UseMiddleware<IdempotencyMiddleware>();
 app.UseAuthorization();
