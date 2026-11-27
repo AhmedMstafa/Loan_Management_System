@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Blocks obvious secrets. Add your own lint/test command at the bottom.
+staged="$(git diff --cached --name-only --diff-filter=ACM)"
+[ -z "$staged" ] && exit 0
+
+if echo "$staged" | grep -qE '(^|/)\.env($|\.)|\.pem$|id_rsa'; then
+  echo "✖ Refusing to commit env/key files:"
+  echo "$staged" | grep -E '(^|/)\.env($|\.)|\.pem$|id_rsa'
+  exit 1
+fi
+
+if git diff --cached -U0 | grep -E '^\+' | grep -qE 'AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'; then
+  echo "✖ Possible secret in staged changes. Review before committing."
+  exit 1
+fi
+
+# --- Optional: uncomment and adapt ---
+# npm run lint --silent || exit 1
+# npm test --silent   || exit 1
+exit 0

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Enforce Conventional Commits: type(scope): summary  (≤ 72 chars)
+msg_file="$1"
+first_line="$(head -n1 "$msg_file")"
+case "$first_line" in Merge*|Revert*|fixup!*|squash!*) exit 0 ;; esac
+regex='^(feat|fix|refactor|perf|chore|test|docs)(\([a-z0-9._/-]+\))?!?: .{1,72}$'
+if ! echo "$first_line" | grep -qE "$regex"; then
+  echo "✖ Commit message must follow: <type>(<scope>): <summary>"
+  echo "  types: feat fix refactor perf chore test docs"
+  echo "  got:   $first_line"
+  exit 1
+fi
