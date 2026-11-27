@@ -109,14 +109,14 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 7: Automated Tests & Verification
-- [ ] **7.1 Unit Tests (`LoanManagement.UnitTests`)**
-  - [ ] Test EMI Amortization calculations for various principal amounts and tenors.
-  - [ ] Test Repayment split allocation (Principal vs Interest vs Late Fees).
-  - [ ] Test GL double-entry rule (Debit equals Credit validation).
-  - [ ] Test Daily Interest Accrual formula.
-- [ ] **7.2 Integration Tests (`LoanManagement.IntegrationTests`)**
-  - [ ] Test idempotency behavior (submitting duplicate payment returns cached result).
-  - [ ] Test complete loan lifecycle end-to-end: Create -> Approve -> Disburse -> Repay.
+- [x] **7.1 Unit Tests (`LoanManagement.UnitTests`)**
+  - [x] Test EMI Amortization calculations for various principal amounts and tenors.
+  - [x] Test Repayment split allocation (Principal vs Interest vs Late Fees).
+  - [x] Test GL double-entry rule (Debit equals Credit validation).
+  - [x] Test Daily Interest Accrual formula.
+- [x] **7.2 Integration Tests (`LoanManagement.IntegrationTests`)**
+  - [x] Test idempotency behavior (submitting duplicate payment returns cached result).
+  - [x] Test complete loan lifecycle end-to-end: Create -> Approve -> Disburse -> Repay.
 
 ---
 

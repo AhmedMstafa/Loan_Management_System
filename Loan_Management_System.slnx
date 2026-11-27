@@ -5,4 +5,8 @@
     <Project Path="src/LoanManagement.Domain/LoanManagement.Domain.csproj" />
     <Project Path="src/LoanManagement.Infrastructure/LoanManagement.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LoanManagement.IntegrationTests/LoanManagement.IntegrationTests.csproj" />
+    <Project Path="tests/LoanManagement.UnitTests/LoanManagement.UnitTests.csproj" />
+  </Folder>
 </Solution>
