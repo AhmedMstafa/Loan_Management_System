@@ -33,17 +33,17 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 3: Infrastructure & Persistence
-- [ ] **3.1 EF Core DbContext & Entity Configurations**
-  - [ ] Create `ApplicationDbContext` implementing `IApplicationDbContext`.
-  - [ ] Create EF Core entity configurations using Fluent API (set column types `decimal(18,4)`, indexes, foreign keys).
-  - [ ] Configure `AuditableEntityInterceptor` for auto-populating timestamps and user audit data.
-- [ ] **3.2 Database Migrations**
-  - [ ] Generate initial database migration (`InitialLoanManagementSchema`).
-  - [ ] Create seed data for Default Organization, Loan Products, Chart of Accounts (GL Accounts), and test users.
-- [ ] **3.3 External Service Mock Implementations**
-  - [ ] Implement `CreditBureauService` (Mock 3rd-party credit agency).
-  - [ ] Implement local/blob `DocumentStorageService` for KYC documents.
-  - [ ] Implement database-backed `IdempotencyService`.
+- [x] **3.1 EF Core DbContext & Entity Configurations**
+  - [x] Create `ApplicationDbContext` implementing `IApplicationDbContext`.
+  - [x] Create EF Core entity configurations using Fluent API (set column types `decimal(18,4)`, indexes, foreign keys).
+  - [x] Configure `AuditableEntityInterceptor` for auto-populating timestamps and user audit data.
+- [x] **3.2 Database Migrations**
+  - [x] Generate initial database migration (`InitialLoanManagementSchema`).
+  - [x] Create seed data for Default Organization, Loan Products, Chart of Accounts (GL Accounts), and test users.
+- [x] **3.3 External Service Mock Implementations**
+  - [x] Implement `CreditBureauService` (Mock 3rd-party credit agency).
+  - [x] Implement local/blob `DocumentStorageService` for KYC documents.
+  - [x] Implement database-backed `IdempotencyService`.
 
 ---
 
