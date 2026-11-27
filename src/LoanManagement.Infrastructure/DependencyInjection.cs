@@ -1,10 +1,12 @@
 using LoanManagement.Application.Common.Interfaces;
+using LoanManagement.Infrastructure.Jobs;
 using LoanManagement.Infrastructure.Persistence;
 using LoanManagement.Infrastructure.Persistence.Interceptors;
 using LoanManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 
 namespace LoanManagement.Infrastructure;
 
@@ -34,6 +36,24 @@ public static class DependencyInjection
         services.AddScoped<ICreditBureauService, CreditBureauService>();
         services.AddScoped<IDocumentStorageService, DocumentStorageService>();
         services.AddScoped<IIdempotencyService, IdempotencyService>();
+
+        services.AddQuartz(q =>
+        {
+            var accrualJobKey = new JobKey(DailyInterestAccrualJob.JobKeyName);
+            q.AddJob<DailyInterestAccrualJob>(opts => opts.WithIdentity(accrualJobKey));
+            q.AddTrigger(opts => opts
+                .ForJob(accrualJobKey)
+                .WithIdentity($"{DailyInterestAccrualJob.JobKeyName}-trigger")
+                .WithCronSchedule("0 0 0 * * ?", x => x.InTimeZone(TimeZoneInfo.Utc)));
+
+            var billingJobKey = new JobKey(MonthlyBillingJob.JobKeyName);
+            q.AddJob<MonthlyBillingJob>(opts => opts.WithIdentity(billingJobKey));
+            q.AddTrigger(opts => opts
+                .ForJob(billingJobKey)
+                .WithIdentity($"{MonthlyBillingJob.JobKeyName}-trigger")
+                .WithCronSchedule("0 0 0 1 * ?", x => x.InTimeZone(TimeZoneInfo.Utc)));
+        });
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
         return services;
     }

@@ -101,10 +101,10 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 6: Background Jobs (Automations)
-- [ ] **6.1 Daily Interest Accruals**
-  - [ ] Configure `DailyInterestAccrualJob` to run automatically at 00:00 UTC daily.
-- [ ] **6.2 Monthly Statement Billing**
-  - [ ] Configure `MonthlyBillingJob` to run on the 1st of every month.
+- [x] **6.1 Daily Interest Accruals**
+  - [x] Configure `DailyInterestAccrualJob` to run automatically at 00:00 UTC daily.
+- [x] **6.2 Monthly Statement Billing**
+  - [x] Configure `MonthlyBillingJob` to run on the 1st of every month.
 
 ---
 
