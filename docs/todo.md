@@ -138,3 +138,25 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
   - [x] Update src/LoanManagement.API/Dockerfile to multi-stage .NET 10 build.
   - [x] Add root docker-compose.yml with sqlserver (2022-latest, SA password, 1433) and loan-management-api (depends on sqlserver, port 8080, connection string env).
   - [x] Verify API container startup applies migrations (Database.Migrate()).
+
+## Phase 10: Future Enhancements (Backlog / Under Development)
+- [ ] **10.1 Security & Auth Hardening**
+  - [ ] Add refresh-token rotation and revoke/reuse detection.
+  - [ ] Add rate limiting for sensitive endpoints (login, token, password reset).
+  - [ ] Add account lockout / brute-force protection and password policy enforcement.
+- [ ] **10.2 Observability & Operations**
+  - [ ] Add structured logging enrichment (correlation/trace IDs) across requests and jobs.
+  - [ ] Add health checks (liveness/readiness) and dependency checks.
+  - [ ] Add metrics/tracing (OpenTelemetry) for API, DB, and background jobs.
+- [ ] **10.3 API & Platform**
+  - [ ] Add API versioning strategy and deprecation policy.
+  - [ ] Add pagination/filtering/sorting standards across all list endpoints.
+  - [ ] Add global response caching / ETag support where appropriate.
+- [ ] **10.4 Reliability & Data**
+  - [ ] Add outbox/inbox pattern for reliable domain event/integration delivery.
+  - [ ] Add backup/restore/runbook documentation and migration rollout strategy.
+  - [ ] Add concurrency/conflict handling (optimistic concurrency tokens) on critical aggregates.
+- [ ] **10.5 DevOps & Quality**
+  - [ ] Add CI pipeline (build, test, lint/analyzers, vulnerability scan).
+  - [ ] Add architecture tests and integration tests with Testcontainers/real SQL Server.
+  - [ ] Add production secret management and environment-specific configuration hardening.

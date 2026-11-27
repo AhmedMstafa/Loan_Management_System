@@ -1,4 +1,5 @@
 using System.Text;
+using DotNetEnv;
 using LoanManagement.API.Filters;
 using LoanManagement.API.Middlewares;
 using LoanManagement.Application;
@@ -8,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+Env.TraversePath().Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,9 +84,16 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Loan Management API v1");
-    c.RoutePrefix = string.Empty; // Serves Swagger UI at root (http://localhost:5164/)
+    c.RoutePrefix = "swagger";
 });
-app.MapGet("/swagger", () => Results.Redirect("/"));
+app.MapGet("/", () => Results.Ok(new
+{
+    name = "Loan Management System API",
+    status = "Running",
+    environment = app.Environment.EnvironmentName,
+    swagger = "/swagger",
+    version = "v1"
+}));
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseMiddleware<IdempotencyMiddleware>();

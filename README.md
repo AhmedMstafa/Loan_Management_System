@@ -1,15 +1,19 @@
 # Loan Management System
 
+> **Status: Under Development 🚧**  
+> This project is actively being developed. Core loan management features are implemented, and additional features/improvements will be added incrementally (see `docs/todo.md` backlog).
+
 A production-grade **Loan Management System** backend built with **.NET 10 / ASP.NET Core**, designed for FinTech/banking workflows. The solution follows **Clean Architecture**, **CQRS (MediatR)**, **DDD-inspired domain modeling**, and enforces financial integrity rules (decimal precision, idempotency, double-entry GL, auditability, RBAC, multi-tenancy).
 
 ## Key Features
 
+- **Auth & Users**: register/login, JWT Bearer auth, RBAC roles, seeded dev users, dev token endpoint (sanitized roles).
 - **Loan origination & underwriting**: create loan applications, KYC upload, credit check, approval with amortization schedule generation.
 - **Servicing & repayments**: disbursement, repayment allocation (interest/principal), top-ups, disputes, delinquency tracking.
 - **Accounting & GL**: double-entry journal posting, disbursement/repayment GL entries, provisioning charge posting, bank reconciliation.
 - **Batch automation**: Quartz jobs for daily interest accrual (00:00 UTC) and monthly billing (1st of month).
 - **Risk & reporting**: portfolio export, provisioning charges, audit log querying.
-- **Security & compliance**: JWT Bearer auth, RBAC policies, tenant isolation, idempotency middleware, RFC 7807 error responses.
+- **Security & compliance**: JWT auth, RBAC policies, tenant isolation, idempotency middleware, RFC 7807 error responses.
 
 ## Architecture
 
@@ -25,43 +29,43 @@ tests/
 docs/                             # api-routes, db-schema, backend-structure, todo
 ```
 
-### Design Principles
-
-- **Clean Architecture boundaries**: Domain has no external dependencies; Application depends on Domain; Infrastructure/API depend inward.
-- **CQRS + MediatR**: commands/queries with validation, logging, and transaction pipeline behaviors.
-- **Financial precision**: all monetary/interest values use `decimal` with `MidpointRounding.ToEven`.
-- **Idempotency**: mutating financial operations support `Idempotency-Key` and cached replay protection.
-- **Double-entry ledger**: journal entries validate `Debit == Credit` before posting.
-- **Auditability**: auditable timestamps/user fields and audit log model for traceability.
-
 ## Tech Stack
 
 - .NET 10 / ASP.NET Core Web API
 - Entity Framework Core 10 (SQL Server provider)
 - MediatR, FluentValidation
 - Quartz.NET (background jobs)
-- Serilog (logging package configured)
 - Swashbuckle / OpenAPI
 - xUnit, FluentAssertions, EF Core InMemory
+- Docker / Docker Compose
 
-## Getting Started
+## Configuration (.env)
 
-### Prerequisites
+The project supports a `.env` file (loaded by `DotNetEnv`). Example:
 
-- .NET SDK 10.x
-- SQL Server / LocalDB (default connection uses `(localdb)\MSSQLLocalDB`)
+```env
+ASPNETCORE_ENVIRONMENT=Development
+ASPNETCORE_URLS=http://+:8080
 
-### Setup
+ConnectionStrings__DefaultConnection=Server=(localdb)\MSSQLLocalDB;Database=LoanManagementDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true
+Jwt__Key=DEV_ONLY_SUPER_SECRET_KEY_CHANGE_ME_1234567890
+
+MSSQL_SA_PASSWORD=Your_password123
+```
+
+> Use `.env.example` as a template. Do not commit real production secrets.
+
+## Getting Started (Local)
 
 1. **Restore & build**
    ```bash
    dotnet build Loan_Management_System.slnx
    ```
 
-2. **Configure database** (optional)
-   Update `src/LoanManagement.API/appsettings.json` connection string `ConnectionStrings:DefaultConnection` if needed.
+2. **Configure environment**
+   - Copy `.env.example` to `.env` and adjust values if needed.
 
-3. **Apply migrations**
+3. **Apply migrations** (optional; API also applies migrations on startup)
    ```bash
    dotnet ef database update --project src/LoanManagement.Infrastructure --startup-project src/LoanManagement.API
    ```
@@ -71,10 +75,34 @@ docs/                             # api-routes, db-schema, backend-structure, to
    dotnet run --project src/LoanManagement.API
    ```
 
-5. **Open Swagger UI**
-   - Navigate to the Swagger endpoint shown in console output (typically `/swagger` in Development).
-   - Use the **Authorize** button for JWT Bearer tokens.
-   - For mutating financial endpoints, include `Idempotency-Key` header.
+5. **Endpoints**
+   - Root: `GET /` returns a simple API status response (no Swagger redirect).
+   - Swagger UI: `/swagger`
+
+## Run with Docker Compose
+
+```bash
+docker compose up --build
+```
+
+Services:
+- `sqlserver` - SQL Server 2022 (`1433`)
+- `loan-management-api` - API (`8080`)
+
+The API applies EF Core migrations automatically on startup.
+
+## Authentication (Dev/Test)
+
+- `POST /api/v1/auth/register` - register user
+- `POST /api/v1/auth/login` - login and receive JWT
+- `POST /api/v1/auth/token` - dev token generation (sanitizes invalid roles like `"string"`)
+
+Seeded dev users:
+- `admin@bank.com` / `Admin123!`
+- `officer@bank.com` / `Officer123!`
+- `underwriter@bank.com` / `Underwriter123!`
+- `ops@bank.com` / `Ops123!`
+- `customer@bank.com` / `Customer123!`
 
 ## Testing
 
@@ -82,31 +110,12 @@ docs/                             # api-routes, db-schema, backend-structure, to
 dotnet test Loan_Management_System.slnx
 ```
 
-Test coverage includes:
-- Unit tests: amortization, daily interest accrual, repayment allocation, GL double-entry validation.
-- Integration tests: idempotency replay behavior, end-to-end loan lifecycle (create -> approve -> disburse -> repay).
+## Roadmap / Under Development
 
-## API Modules
-
-| Module | Examples |
-|---|---|
-| Loans | create, credit check, approve, disburse, schedule, statement, delinquent, top-up, dispute resolution, bulk import |
-| Repayments | post repayment |
-| Borrowers | KYC document upload |
-| Accounting | bank reconciliation, GL journal posting |
-| Batch | interest accruals, billing |
-| Risk | portfolio export, provisioning charge |
-| Products | manage product rates |
-| Audit | query audit logs |
-
-See `docs/api-routes.md` and `docs/db-schema.md` for detailed contracts and schema.
+This repository is still under development. Planned and in-progress enhancements are tracked in `docs/todo.md` (including backlog items for security hardening, observability, API platform improvements, reliability, and DevOps quality).
 
 ## Security Notes
 
-- **Do not use default JWT key in production**; configure `Jwt:Key` via secure secrets/environment.
-- Enforce HTTPS, secret rotation, and proper identity provider integration before production deployment.
-- RBAC policies include roles such as `LoanOfficer`, `Underwriter`, `BackOffice`, `Accountant`, `RiskAnalyst`, `Admin`, etc.
-
-## Development Workflow
-
-The project tracks execution in `docs/todo.md`. Each completed phase is built, tested as required, committed, and pushed to `develop`.
+- **Do not use default JWT key or SA password in production**.
+- Use secret management/environment-specific config for production.
+- Enforce HTTPS, secret rotation, and a proper identity provider before production deployment.
