@@ -48,34 +48,34 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 4: Application Layer (CQRS & Business Logic)
-- [ ] **4.1 MediatR Pipeline Behaviors**
-  - [ ] Implement `ValidationBehavior<TRequest, TResponse>`.
-  - [ ] Implement `LoggingBehavior<TRequest, TResponse>`.
-  - [ ] Implement `TransactionBehavior<TRequest, TResponse>`.
-- [ ] **4.2 Loan Origination & Underwriting Commands**
-  - [ ] `CreateLoanCommand` + Handler + FluentValidation rules.
-  - [ ] `UploadKycDocumentCommand` + Handler.
-  - [ ] `RunCreditCheckCommand` + Handler.
-  - [ ] `ApproveLoanCommand` + Handler (generates schedule and changes status).
-- [ ] **4.3 Servicing & Financial Operations**
-  - [ ] `DisburseLoanCommand` + Handler (posts initial GL entries).
-  - [ ] `MakeRepaymentCommand` + Handler (allocates payment to principal/interest, updates balance, posts GL entries).
-  - [ ] `ApplyTopUpCommand` + Handler.
-  - [ ] `ResolveCustomerDisputeCommand` + Handler.
-- [ ] **4.4 Queries**
-  - [ ] `GetPaymentScheduleQuery` + Handler.
-  - [ ] `GetDelinquentLoansQuery` + Handler (paginated).
-  - [ ] `GetLoanStatementQuery` + Handler.
-  - [ ] `GetAuditLogsQuery` + Handler.
-  - [ ] `ExportPortfolioReportQuery` + Handler.
-- [ ] **4.5 Accounting & Batch Operations**
-  - [ ] `PostGlJournalEntryCommand` + Handler (double-entry validation: sum(Debit) == sum(Credit)).
-  - [ ] `UploadBankReconciliationCommand` + Handler.
-  - [ ] `GenerateDailyAccrualsCommand` + Handler.
-  - [ ] `RunBatchBillingCommand` + Handler.
-  - [ ] `ManageProductRatesCommand` + Handler.
-  - [ ] `TriggerProvisioningChargeCommand` + Handler (IFRS 9 ECL model).
-  - [ ] `BulkImportLoansCommand` + Handler.
+- [x] **4.1 MediatR Pipeline Behaviors**
+  - [x] Implement `ValidationBehavior<TRequest, TResponse>`.
+  - [x] Implement `LoggingBehavior<TRequest, TResponse>`.
+  - [x] Implement `TransactionBehavior<TRequest, TResponse>`.
+- [x] **4.2 Loan Origination & Underwriting Commands**
+  - [x] `CreateLoanCommand` + Handler + FluentValidation rules.
+  - [x] `UploadKycDocumentCommand` + Handler.
+  - [x] `RunCreditCheckCommand` + Handler.
+  - [x] `ApproveLoanCommand` + Handler (generates schedule and changes status).
+- [x] **4.3 Servicing & Financial Operations**
+  - [x] `DisburseLoanCommand` + Handler (posts initial GL entries).
+  - [x] `MakeRepaymentCommand` + Handler (allocates payment to principal/interest, updates balance, posts GL entries).
+  - [x] `ApplyTopUpCommand` + Handler.
+  - [x] `ResolveCustomerDisputeCommand` + Handler.
+- [x] **4.4 Queries**
+  - [x] `GetPaymentScheduleQuery` + Handler.
+  - [x] `GetDelinquentLoansQuery` + Handler (paginated).
+  - [x] `GetLoanStatementQuery` + Handler.
+  - [x] `GetAuditLogsQuery` + Handler.
+  - [x] `ExportPortfolioReportQuery` + Handler.
+- [x] **4.5 Accounting & Batch Operations**
+  - [x] `PostGlJournalEntryCommand` + Handler (double-entry validation: sum(Debit) == sum(Credit)).
+  - [x] `UploadBankReconciliationCommand` + Handler.
+  - [x] `GenerateDailyAccrualsCommand` + Handler.
+  - [x] `RunBatchBillingCommand` + Handler.
+  - [x] `ManageProductRatesCommand` + Handler.
+  - [x] `TriggerProvisioningChargeCommand` + Handler (IFRS 9 ECL model).
+  - [x] `BulkImportLoansCommand` + Handler.
 
 ---
 

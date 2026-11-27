@@ -179,6 +179,17 @@ public sealed class Loan : BaseEntity<string>, IAggregateRoot
         AccruedInterest = decimal.Round(AccruedInterest + amount, 4, MidpointRounding.ToEven);
     }
 
+    public void ApplyTopUp(decimal additionalAmount, int tenorExtensionMonths)
+    {
+        if (Status is not (LoanStatus.Active or LoanStatus.Disbursed or LoanStatus.Approved))
+            throw new InvalidLoanStateException(Id, Status.ToString(), nameof(ApplyTopUp));
+        if (additionalAmount <= 0) throw new DomainValidationException(nameof(additionalAmount), "Additional amount must be greater than zero.");
+        if (tenorExtensionMonths < 0) throw new DomainValidationException(nameof(tenorExtensionMonths), "Tenor extension cannot be negative.");
+
+        OutstandingPrincipal = decimal.Round(OutstandingPrincipal + additionalAmount, 4, MidpointRounding.ToEven);
+        TenorMonths += tenorExtensionMonths;
+    }
+
     private void EnsureStatus(LoanStatus expected, string action)
     {
         if (Status != expected)
