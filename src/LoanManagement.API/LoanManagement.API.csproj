@@ -7,6 +7,7 @@
     <UserSecretsId>4cb7dcb9-eb35-46c6-b10c-fa000dab7e2c</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <DockerfileRunArguments>--env-file "$(MSBuildProjectDirectory)\..\..\.env"</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>

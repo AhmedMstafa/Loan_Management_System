@@ -11,6 +11,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 Env.TraversePath().Load();
+if (File.Exists("/src/.env"))
+{
+    Env.Load("/src/.env");
+}
 
 var builder = WebApplication.CreateBuilder(args);
 

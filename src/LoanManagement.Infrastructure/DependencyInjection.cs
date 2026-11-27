@@ -16,8 +16,11 @@ public static class DependencyInjection
     {
         services.AddScoped<AuditableEntityInterceptor>();
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? "Server=(localdb)\\MSSQLLocalDB;Database=LoanManagementDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException("Connection string 'DefaultConnection' was not found. Please provide it in .env or environment variables.");
+        }
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
