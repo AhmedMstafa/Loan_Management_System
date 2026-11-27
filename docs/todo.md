@@ -5,30 +5,30 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 1: Solution Scaffolding & Architecture Setup
-- [ ] **1.1 Solution Projects Setup**
-  - [ ] Create `LoanManagement.Domain` class library (`net10.0`).
-  - [ ] Create `LoanManagement.Application` class library (`net10.0`).
-  - [ ] Create `LoanManagement.Infrastructure` class library (`net10.0`).
-  - [ ] Rename / structure `LoanManagement.API` Web API project (`net10.0`).
-  - [ ] Configure project references adhering to Clean Architecture dependency rules.
-- [ ] **1.2 Core Dependencies Installation**
-  - [ ] Install `MediatR` and `FluentValidation` in `Application`.
-  - [ ] Install `Microsoft.EntityFrameworkCore.SqlServer` (or Npgsql) and `Microsoft.EntityFrameworkCore.Design` in `Infrastructure`.
-  - [ ] Install `Serilog.AspNetCore`, `Swashbuckle.AspNetCore` / `Microsoft.AspNetCore.OpenApi` in `API`.
+- [x] **1.1 Solution Projects Setup**
+  - [x] Create `LoanManagement.Domain` class library (`net10.0`).
+  - [x] Create `LoanManagement.Application` class library (`net10.0`).
+  - [x] Create `LoanManagement.Infrastructure` class library (`net10.0`).
+  - [x] Rename / structure `LoanManagement.API` Web API project (`net10.0`).
+  - [x] Configure project references adhering to Clean Architecture dependency rules.
+- [x] **1.2 Core Dependencies Installation**
+  - [x] Install `MediatR` and `FluentValidation` in `Application`.
+  - [x] Install `Microsoft.EntityFrameworkCore.SqlServer` (or Npgsql) and `Microsoft.EntityFrameworkCore.Design` in `Infrastructure`.
+  - [x] Install `Serilog.AspNetCore`, `Swashbuckle.AspNetCore` / `Microsoft.AspNetCore.OpenApi` in `API`.
 
 ---
 
 ## Phase 2: Domain Layer (Pure C# & Financial Core)
-- [ ] **2.1 Base Primitives**
-  - [ ] Implement `BaseEntity` (Id, CreatedAt, CreatedBy, UpdatedAt, IsDeleted).
-  - [ ] Implement `IAggregateRoot` and `IDomainEvent`.
-  - [ ] Implement `Result<T>` pattern and Domain Exceptions (`DomainValidationException`, `InvalidLoanStateException`).
-- [ ] **2.2 Domain Entities & Enums**
-  - [ ] Enums: `LoanStatus`, `RepaymentStatus`, `RiskRating`, `TransactionType`.
-  - [ ] Entities: `Organization`, `Borrower`, `LoanProduct`, `Loan`, `RepaymentScheduleItem`, `RepaymentPayment`, `GlAccount`, `GlJournalEntry`, `GlJournalLine`, `KycDocument`, `CreditCheck`, `Dispute`, `AuditLog`.
-- [ ] **2.3 Financial Calculation Services**
-  - [ ] Implement Equal Monthly Installment (EMI) amortization schedule calculator using `decimal`.
-  - [ ] Implement daily interest accrual calculation logic.
+- [x] **2.1 Base Primitives**
+  - [x] Implement `BaseEntity` (Id, CreatedAt, CreatedBy, UpdatedAt, IsDeleted).
+  - [x] Implement `IAggregateRoot` and `IDomainEvent`.
+  - [x] Implement `Result<T>` pattern and Domain Exceptions (`DomainValidationException`, `InvalidLoanStateException`).
+- [x] **2.2 Domain Entities & Enums**
+  - [x] Enums: `LoanStatus`, `RepaymentStatus`, `RiskRating`, `TransactionType`.
+  - [x] Entities: `Organization`, `Borrower`, `LoanProduct`, `Loan`, `RepaymentScheduleItem`, `RepaymentPayment`, `GlAccount`, `GlJournalEntry`, `GlJournalLine`, `KycDocument`, `CreditCheck`, `Dispute`, `AuditLog`.
+- [x] **2.3 Financial Calculation Services**
+  - [x] Implement Equal Monthly Installment (EMI) amortization schedule calculator using `decimal`.
+  - [x] Implement daily interest accrual calculation logic.
 
 ---
 
