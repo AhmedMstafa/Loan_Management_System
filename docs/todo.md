@@ -80,23 +80,23 @@ Use this checklist with your AI coding agent (e.g. OpenCode) to track progress t
 ---
 
 ## Phase 5: API Layer, Middlewares & Security
-- [ ] **5.1 Middlewares**
-  - [ ] Implement `ExceptionHandlingMiddleware` for standardized RFC 7807 `ProblemDetails`.
-  - [ ] Implement `IdempotencyMiddleware` (inspects and enforces `Idempotency-Key` header).
-- [ ] **5.2 Authentication & Multi-Tenancy**
-  - [ ] Configure JWT Bearer authentication with Role-Based Access Control (RBAC).
-  - [ ] Implement tenant isolation filter/middleware validating `organizationId`.
-- [ ] **5.3 Controllers Implementation**
-  - [ ] `LoansController` (APIs 01, 02, 03, 04, 05, 07, 12, 16, 17, 18).
-  - [ ] `RepaymentsController` (API 06).
-  - [ ] `BorrowersController` (API 09).
-  - [ ] `AccountingController` (APIs 11, 15).
-  - [ ] `BatchController` (APIs 10, 19).
-  - [ ] `RiskController` (APIs 08, 14).
-  - [ ] `ProductsController` (API 13).
-  - [ ] `AuditController` (API 20).
-- [ ] **5.4 Swagger / OpenAPI Setup**
-  - [ ] Configure Swagger UI with JWT Bearer auth support and `Idempotency-Key` header parameter.
+- [x] **5.1 Middlewares**
+  - [x] Implement `ExceptionHandlingMiddleware` for standardized RFC 7807 `ProblemDetails`.
+  - [x] Implement `IdempotencyMiddleware` (inspects and enforces `Idempotency-Key` header).
+- [x] **5.2 Authentication & Multi-Tenancy**
+  - [x] Configure JWT Bearer authentication with Role-Based Access Control (RBAC).
+  - [x] Implement tenant isolation filter/middleware validating `organizationId`.
+- [x] **5.3 Controllers Implementation**
+  - [x] `LoansController` (APIs 01, 02, 03, 04, 05, 07, 12, 16, 17, 18).
+  - [x] `RepaymentsController` (API 06).
+  - [x] `BorrowersController` (API 09).
+  - [x] `AccountingController` (APIs 11, 15).
+  - [x] `BatchController` (APIs 10, 19).
+  - [x] `RiskController` (APIs 08, 14).
+  - [x] `ProductsController` (API 13).
+  - [x] `AuditController` (API 20).
+- [x] **5.4 Swagger / OpenAPI Setup**
+  - [x] Configure Swagger UI with JWT Bearer auth support and `Idempotency-Key` header parameter.
 
 ---
 
