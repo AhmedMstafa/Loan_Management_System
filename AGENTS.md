@@ -62,6 +62,27 @@
 - Read `docs/db-schema.md` before modifying entities or migrations.
 - When working on a feature, update the task status in `docs/todo.md`.
 
+---
+
+## 6) Automated Git Commit & Push Rule (MANDATORY)
+Whenever you complete ANY sub-task, feature, or phase from `docs/todo.md`:
+1. **Verification**: Run `dotnet build` and `dotnet test` — NEVER commit broken or non-compiling code.
+2. **Update Checklist**: Mark the completed item as `[x]` in `docs/todo.md`.
+3. **Commit**: Stage and commit changes using Conventional Commits:
+   ```bash
+   git add .
+   git commit -m "<type>(<scope>): <clear description of completed task>"
+   ```
+   *(Examples: `feat(domain): implement loan aggregate and amortization calculator`, `feat(infra): add application db context and migrations`)*
+4. **Push**: Automatically push to the `develop` branch:
+   ```bash
+   git push origin develop
+   ```
+5. Never leave uncommitted or unpushed work at the end of a completed task.
+
+---
+
+## 7) AI Agents & Skills Triggers
 | Trigger | Read & follow |
 |---|---|
 | Starting a new feature | `.ai/skills/feature-scaffolding.md` |
